@@ -37,7 +37,7 @@ class BullAgent(BaseAgent):
             SystemMessage(content=BULL_SYSTEM_PROMPT),
             HumanMessage(content=f"Question: {question}\nContext: {context}\n\nMake your bullish argument.")
         ]
-        response = self.llm.invoke(messages)
+        response = self.invoke_with_retry(messages)
         claim = response.content
 
         return Argument(
@@ -56,7 +56,7 @@ Argument: {argument.claim}
 If yes, explain the flaw in 1-2 sentences and start with 'ATTACK:'.
 If no valid attack exists, start with 'PASS:'.""")
         ]
-        response = self.llm.invoke(messages)
+        response = self.invoke_with_retry(messages)
         content = response.content
 
         if content.startswith("ATTACK:"):
@@ -72,7 +72,7 @@ Attack: {attack_reason}
 
 Rebut this attack and strengthen your position in 2-3 sentences.""")
         ]
-        response = self.llm.invoke(messages)
+        response = self.invoke_with_retry(messages)
 
         return Argument(
             claim=response.content,

@@ -37,7 +37,7 @@ class DevilAgent(BaseAgent):
             SystemMessage(content=DEVIL_SYSTEM_PROMPT),
             HumanMessage(content=f"Question: {question}\nContext: {context}\n\nChallenge the core assumptions.")
         ]
-        response = self.llm.invoke(messages)
+        response = self.invoke_with_retry(messages)
 
         return Argument(
             claim=response.content,
@@ -55,7 +55,7 @@ Argument: {argument.claim}
 If you can challenge it, start with 'ATTACK:' and explain in 1-2 sentences.
 If the argument is solid, start with 'PASS:'.""")
         ]
-        response = self.llm.invoke(messages)
+        response = self.invoke_with_retry(messages)
         content = response.content
 
         if content.startswith("ATTACK:"):
@@ -71,7 +71,7 @@ Challenge: {attack_reason}
 
 Defend your skeptical position in 2-3 sentences.""")
         ]
-        response = self.llm.invoke(messages)
+        response = self.invoke_with_retry(messages)
 
         return Argument(
             claim=response.content,

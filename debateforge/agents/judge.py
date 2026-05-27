@@ -32,7 +32,7 @@ Attack by {attacker.agent_id}: {attack_reason}
 
 Is this attack logically valid?""")
         ]
-        response = self.llm.invoke(messages)
+        response = self.invoke_with_retry(messages)
         content = response.content.strip()
 
         is_valid = content.upper().startswith("VALID")

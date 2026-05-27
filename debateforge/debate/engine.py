@@ -139,9 +139,23 @@ Winner: {winner}
 Provide your final recommendation.""")
         ]
 
-        response = self.llm.invoke(messages)
+        response = self._invoke_with_retry(messages)
         return response.content
     
+    def _invoke_with_retry(self, messages, retries: int = 3, wait: int = 10):
+        import time
+        for attempt in range(retries):
+            try:
+                return self.llm.invoke(messages)
+            except Exception as e:
+                if "429" in str(e) or "rate_limit" in str(e).lower():
+                    if attempt < retries - 1:
+                        time.sleep(wait)
+                    else:
+                        raise
+                else:
+                    raise
+
 
     def _detect_ticker(self, question: str) -> str:
         messages = [
@@ -152,6 +166,6 @@ Provide your final recommendation.""")
     Return only the ticker symbol, nothing else."""),
             HumanMessage(content=question)
         ]
-        response = self.llm.invoke(messages)
+        response = self._invoke_with_retry(messages)
         ticker = response.content.strip().upper()
         return "" if ticker == "NONE" else ticker 
