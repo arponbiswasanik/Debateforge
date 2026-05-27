@@ -4,6 +4,8 @@ A multi-agent epistemic debate system that uses Dung's Abstract Argumentation Fr
 
 Instead of asking a single LLM for an answer, DebateForge deploys three agents with opposing epistemic stances — Bull, Bear, and Devil's Advocate — who debate a question using formal attack and defense logic. A Judge agent validates each attack, and grounded semantics determines which arguments survive.
 
+Current domain: financial investment analysis — agents are grounded in real market data retrieved via Yahoo Finance, covering revenue trends, profit margins, debt ratios, and other key financial metrics.
+
 ---
 
 ## Architecture
