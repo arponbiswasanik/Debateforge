@@ -142,3 +142,9 @@ streamlit run frontend/app.py
 - Confidence scoring per argument
 - Human-in-the-loop debate injection
 - Docker deployment
+
+---
+
+## References
+
+- Dung, P. M. (1995). [On the Acceptability of Arguments and its Fundamental Role in Nonmonotonic Reasoning, Logic Programming and n-Person Games](https://www.sciencedirect.com/science/article/pii/000437029400041X). *Artificial Intelligence*, 77(2), 321–357.
