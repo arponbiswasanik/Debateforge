@@ -55,19 +55,27 @@ graph TD
 
 ## Project Structure
 
-debateforge/
-├── debateforge/
-│   ├── agents/          # Bull, Bear, Devil, Judge agents
-│   ├── argumentation/   # Dung's framework — attack graph, grounded/preferred/stable semantics
-│   ├── debate/          # Debate engine and orchestration
-│   ├── retrieval/       # RAG pipeline and financial data loader
-│   ├── visualization/   # Argument graph rendering
-│   ├── api/             # FastAPI REST API
-│   └── config/          # Settings and environment
-├── frontend/            # Streamlit UI
-├── tests/               # Unit and integration tests
-├── docker/              # Docker configuration
-└── .github/workflows/   # CI/CD pipelines
+```
+Debateforge/
+│
+├── debateforge/                 # Main package
+│   ├── agents/                  # Bull, Bear, Devil, Judge agents
+│   ├── argumentation/           # Dung's framework core
+│   │   └── semantics/           # Grounded, preferred, stable extensions
+│   ├── debate/                  # Debate engine and orchestration
+│   ├── retrieval/               # RAG pipeline and financial data loader
+│   ├── visualization/           # Argument graph rendering
+│   ├── api/                     # FastAPI REST API
+│   ├── core/                    # Base classes and exceptions
+│   └── config/                  # Settings and environment
+│
+├── frontend/                    # Streamlit UI
+│   └── components/              # UI components
+│
+├── tests/                       # Unit and integration tests
+├── docker/                      # Docker configuration
+└── .github/workflows/           # CI/CD pipelines
+```
 
 ---
 
@@ -104,14 +112,16 @@ streamlit run frontend/app.py
 
 ## Tech Stack
 
-- **LLM** — Groq (llama-3.1-8b-instant)
-- **Agent Framework** — LangChain
-- **Argumentation** — Custom implementation of Dung's Abstract Argumentation Framework
-- **Financial Data** — Yahoo Finance via yfinance
-- **Vector Store** — ChromaDB with sentence-transformers
-- **API** — FastAPI
-- **UI** — Streamlit
-- **Testing** — pytest
+| Component | Technology |
+|-----------|------------|
+| LLM | Groq — llama-3.1-8b-instant |
+| Agent Framework | LangChain |
+| Argumentation | Custom implementation of Dung's Abstract Argumentation Framework |
+| Financial Data | Yahoo Finance via yfinance |
+| Vector Store | ChromaDB + sentence-transformers |
+| API | FastAPI |
+| UI | Streamlit |
+| Testing | pytest |
 
 ---
 
