@@ -1,5 +1,6 @@
 from debateforge.agents import BullAgent, BearAgent, DevilAgent, JudgeAgent
 from debateforge.argumentation import Argument, AttackGraph, ExtensionSolver
+from debateforge.retrieval.retriever import FinancialRetriever
 from debateforge.config.settings import settings
 
 
@@ -7,8 +8,14 @@ class DebateEngine:
     def __init__(self):
         self.agents = [BullAgent(), BearAgent(), DevilAgent()]
         self.judge = JudgeAgent()
+        self.retriever = FinancialRetriever()
 
-    def debate(self, question: str, context: str = "") -> dict:
+    def debate(self, question: str, ticker: str = "") -> dict:
+        #load financial context if ticker provided
+        context = ""
+        if ticker:
+            context = self.retriever.load_ticker(ticker)
+
         graph = AttackGraph()
 
         #each agent generates initial argument
@@ -18,7 +25,7 @@ class DebateEngine:
             arguments[agent.agent_id] = arg
             graph.add_argument(arg)
 
-        # debate rounds
+        #debate rounds
         for round_num in range(settings.max_debate_rounds):
             for attacker in self.agents:
                 for defender in self.agents:
@@ -53,6 +60,8 @@ class DebateEngine:
 
         return {
             "question": question,
+            "ticker": ticker,
+            "context": context,
             "arguments": arguments,
             "grounded": grounded,
             "preferred": preferred,
