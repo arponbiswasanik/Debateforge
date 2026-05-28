@@ -23,6 +23,20 @@ class JudgeAgent:
             max_tokens=settings.max_tokens,
         )
 
+    def invoke_with_retry(self, messages, retries: int = 3, wait: int = 10):
+        import time
+        for attempt in range(retries):
+            try:
+                return self.llm.invoke(messages)
+            except Exception as e:
+                if "429" in str(e) or "rate_limit" in str(e).lower():
+                    if attempt < retries - 1:
+                        time.sleep(wait)
+                    else:
+                        raise
+                else:
+                    raise
+
     def validate_attack(self, attacker: Argument, target: Argument, attack_reason: str) -> tuple[bool, str]:
         messages = [
             SystemMessage(content=JUDGE_SYSTEM_PROMPT),
