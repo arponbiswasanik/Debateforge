@@ -120,7 +120,7 @@ streamlit run frontend/app.py
 | Agent Framework | LangChain |
 | Argumentation | Custom implementation of Dung's Abstract Argumentation Framework |
 | Financial Data | Yahoo Finance via yfinance |
-| Vector Store | ChromaDB + sentence-transformers |
+| Vector Store | In-memory store |
 | API | FastAPI |
 | UI | Streamlit |
 | Testing | pytest |

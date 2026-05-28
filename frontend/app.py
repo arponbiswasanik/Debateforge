@@ -231,6 +231,7 @@ if run:
     if not question.strip():
         st.warning("Please enter a question.")
     else:
+        st.session_state.debate_result = None
         with st.spinner("Agents are debating..."):
             engine = DebateEngine()
             result = engine.debate(question, ticker=ticker.strip().upper() if ticker.strip() else "")
