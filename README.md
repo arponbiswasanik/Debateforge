@@ -119,7 +119,7 @@ streamlit run frontend/app.py
 | LLM | Groq — llama-3.1-8b-instant |
 | Agent Framework | LangChain |
 | Argumentation | Custom implementation of Dung's Abstract Argumentation Framework |
-| Financial Data | Yahoo Finance via yfinance |
+| Financial Data | Alpha Vantage API |
 | Vector Store | In-memory store |
 | API | FastAPI |
 | UI | Streamlit |
